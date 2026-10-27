@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0b1220;
+  color: #e7e9ee;
+  font-feature-settings: 'ss01' on;
+}
+
+::selection {
+  background: #d59632;
+  color: #0b1220;
+}
+
+.section-heading {
+  font-family: 'Fraunces', serif;
+}
+
+.container-base {
+  @apply mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-10;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #efc98a, #d59632 45%, #8a5a96);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.card-surface {
+  background: linear-gradient(180deg, rgba(22, 33, 58, 0.7), rgba(15, 23, 42, 0.5));
+  border: 1px solid rgba(239, 201, 138, 0.1);
+}
+
+.chip {
+  @apply inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 text-sm text-white/80 backdrop-blur-sm;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0b1220;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a3550;
+  border-radius: 999px;
+}
