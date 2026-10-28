@@ -28,7 +28,7 @@ export default function About() {
         <SectionHeading
           eyebrow="About Me"
           title="A developer who bridges design and e-commerce."
-          description={`${profile.name} is a Shopify Developer focused on theme development, responsive design, custom sections, and polished e-commerce experiences.`}
+          description={`${profile.name} is a Shopify Web Designer and Developer with 4+ years of experience, familiar with premium themes such as Impact, Symmetry, and Dawn, and skilled at using modern AI tools and performance optimisation to drive user engagement and sales.`}
         />
 
         <motion.div

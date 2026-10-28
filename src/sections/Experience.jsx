@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
-import { Briefcase } from 'lucide-react'
+import { Briefcase, GraduationCap } from 'lucide-react'
 import SectionHeading from '../components/SectionHeading'
+import { education } from '../data/education'
 import { experience } from '../data/experience'
 
 export default function Experience() {
@@ -45,6 +46,31 @@ export default function Experience() {
                     </li>
                   ))}
                 </ul>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <h3 className="section-heading mt-20 text-2xl font-semibold text-white">Education</h3>
+
+        <div className="relative mt-10 border-l border-white/10 pl-8 sm:pl-10">
+          {education.map((item, idx) => (
+            <motion.div
+              key={`${item.institution}-${idx}`}
+              initial={{ opacity: 0, x: -16 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.5, delay: idx * 0.1, ease: 'easeOut' }}
+              className="relative mb-12 last:mb-0"
+            >
+              <span className="absolute -left-[41px] top-1 flex h-8 w-8 items-center justify-center rounded-full border border-accent-300/40 bg-ink-950 text-accent-300 sm:-left-[49px]">
+                <GraduationCap size={14} />
+              </span>
+
+              <div className="card-surface rounded-2xl p-6 shadow-soft">
+                <h3 className="section-heading text-lg font-semibold text-white">
+                  {item.title} &middot; {item.institution}
+                </h3>
               </div>
             </motion.div>
           ))}

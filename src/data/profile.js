@@ -11,12 +11,12 @@ export const profile = {
   role: 'Shopify Developer',
   tagline: 'Priya Prajapati Shopify Developer.',
   intro:
-    "I'm a Shopify Developer who turns Figma designs into fast, reliable, conversion-ready online stores — combining clean Liquid architecture with thoughtful, responsive front-end craft.",
-  location: 'India',
-  email: 'hello@priyaprajapati.dev',
+    "Results-driven Shopify Web Designer and Developer with 4+ years of experience building, customising, and scaling high-converting e-commerce stores, using Liquid, HTML5, CSS3, and JavaScript.",
+  location: 'Surat, Gujarat',
+  email: 'prajapatipriya269@gmail.com',
   resumeUrl: '#',
   socials: {
-    linkedin: 'https://www.linkedin.com/in/your-profile',
+    linkedin: 'https://www.linkedin.com/in/priyaprajapati-dev',
     github: 'https://github.com/your-profile',
   },
   avatar,

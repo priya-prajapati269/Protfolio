@@ -1,23 +1,30 @@
 export const skillGroups = [
   {
-    title: 'Shopify Development',
-    skills: ['Shopify', 'Shopify Liquid', 'Shopify Theme Customization', 'Shopify Sections and Blocks'],
-  },
-  {
-    title: 'Data & Structure',
-    skills: ['JSON', 'Metafields and Metaobjects'],
-  },
-  {
-    title: 'Front-End Craft',
-    skills: ['HTML', 'CSS', 'scss', 'JavaScript', 'jquery', 'Responsive Web Design'],
-  },
-  {
-    title: 'Workflow & Optimization',
+    title: 'Front-End & E-Commerce Core',
     skills: [
-      'Figma to Shopify Development',
-      'Website Performance Optimization',
-      'SEO Fundamentals',
-      'Git and GitHub',
+      'Shopify Theme Customization',
+      'Liquid',
+      'HTML5',
+      'CSS3',
+      'JavaScript',
+      'Responsive Web Design',
     ],
+  },
+  {
+    title: 'Shopify Ecosystem',
+    skills: [
+      'Third-Party App Integration',
+      'Product Collections & Catalogs',
+      'Blog Management',
+      'Data Migration',
+    ],
+  },
+  {
+    title: 'Shopify Themes & Frameworks',
+    skills: ['Dawn', 'Impact', 'Symmetry', 'Vision', 'Horizon', 'Custom Theme Structures'],
+  },
+  {
+    title: 'AI Development Tools',
+    skills: ['Claude', 'ChatGPT', 'Antigravity'],
   },
 ]
