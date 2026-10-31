@@ -76,7 +76,7 @@ export default function Hero() {
               <img
                 src={profile.avatar}
                 alt={profile.name}
-                className="h-full w-full rounded-[2rem] object-cover object-center"
+                className="h-full w-full rounded-[2rem] object-cover object-top"
               />
             ) : (
               <div className="flex flex-col items-center gap-3 text-white/70">

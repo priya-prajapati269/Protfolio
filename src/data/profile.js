@@ -1,5 +1,5 @@
 // Drop your photo into src/assets/ named avatar.jpg / .jpeg / .png / .webp and it shows in the hero.
-const avatarFiles = import.meta.glob('../assets/avatar.{jpg,jpeg,png,webp}', {
+const avatarFiles = import.meta.glob('../assets/priya_prajapati_profile.{jpg,jpeg,png,webp}', {
   eager: true,
   import: 'default',
 })
