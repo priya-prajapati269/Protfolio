@@ -108,7 +108,7 @@ If you'd rather use a different provider (EmailJS, a custom serverless function,
 - **Prerendering:** `npm run build` also renders the page into `dist/index.html` through `src/entry-server.jsx` and `scripts/prerender.js`, so crawlers get the content as HTML. Components must not read `window` or `document` during render; use `useEffect` instead.
 - **Images:** the hero photo and social sharing image are in `public/images/`. The hero is referenced from `src/data/profile.js` and preloaded in `index.html`.
 
-If the site moves to a custom domain, replace `https://priya-prajapati-portfolio.vercel.app` in `index.html`, `public/robots.txt`, and `public/sitemap.xml`.
+If the site moves to a custom domain, replace `https://priya-prajapati.vercel.app` in `index.html`, `public/robots.txt`, and `public/sitemap.xml`.
 
 ## Notes
 
