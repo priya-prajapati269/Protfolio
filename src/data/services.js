@@ -1,7 +1,7 @@
 export const services = [
   {
-    title: 'Shopify Theme Development',
-    description: 'Custom theme builds from scratch or from a Figma design, built on clean, maintainable Liquid.',
+    title: 'Shopify Custom Theme Development',
+    description: 'Custom Shopify themes built from scratch or from a Figma design, on clean, maintainable Liquid.',
   },
   {
     title: 'Custom Shopify Sections',

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Github, Linkedin, Loader2, Mail, MapPin, Send } from 'lucide-react'
 import SectionHeading from '../components/SectionHeading'
@@ -20,17 +20,34 @@ export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
   const [status, setStatus] = useState(null) // null | 'sending' | 'success' | 'invalid' | 'error' | 'not-configured'
   const [errorMessage, setErrorMessage] = useState('')
+  const captchaRef = useRef(null)
 
   useEffect(() => {
     if (!WEB3FORMS_ACCESS_KEY || document.querySelector(`script[src="${HCAPTCHA_SCRIPT_URL}"]`)) {
       return
     }
 
-    // The script renders the widget into the .h-captcha element once it loads.
-    const script = document.createElement('script')
-    script.src = HCAPTCHA_SCRIPT_URL
-    script.async = true
-    document.body.appendChild(script)
+    // Load the captcha only as the form nears the viewport, since it adds 300 KB+ of third-party code.
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return
+        observer.disconnect()
+
+        // Set here, not in JSX, because the prerendered page has no viewport to measure.
+        captchaRef.current.dataset.size =
+          window.innerWidth < HCAPTCHA_NORMAL_MIN_WIDTH ? 'compact' : 'normal'
+
+        // The script renders the widget into the .h-captcha element once it loads.
+        const script = document.createElement('script')
+        script.src = HCAPTCHA_SCRIPT_URL
+        script.async = true
+        document.body.appendChild(script)
+      },
+      { rootMargin: '800px' },
+    )
+
+    observer.observe(captchaRef.current)
+    return () => observer.disconnect()
   }, [])
 
   const handleChange = (event) => {
@@ -111,8 +128,8 @@ export default function Contact() {
         <div>
           <SectionHeading
             eyebrow="Contact"
-            title="Let's build something great together."
-            description="Have a project in mind? Send a message and I'll get back to you."
+            title="Let's build your Shopify store together."
+            description="Looking for a Shopify developer in India? Send a message about your project or role and I'll get back to you."
           />
 
           <div className="mt-10 space-y-4">
@@ -223,10 +240,10 @@ export default function Contact() {
 
           {WEB3FORMS_ACCESS_KEY && (
             <div
-              className="h-captcha mt-5"
+              ref={captchaRef}
+              className="h-captcha mt-5 min-h-[78px]"
               data-sitekey={HCAPTCHA_SITE_KEY}
               data-theme="dark"
-              data-size={window.innerWidth < HCAPTCHA_NORMAL_MIN_WIDTH ? 'compact' : 'normal'}
             />
           )}
 

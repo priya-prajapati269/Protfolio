@@ -18,7 +18,7 @@ export default function Projects() {
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <SectionHeading
             eyebrow="Featured Projects"
-            title="A sample of Shopify work."
+            title="Shopify website development projects."
             description="Live Shopify stores and theme builds I've worked on — browse the projects below or open any of them to see the work in action."
           />
 
@@ -59,8 +59,11 @@ export default function Projects() {
                 {project.image ? (
                   <img
                     src={project.image}
-                    alt={project.title}
+                    alt={`${project.title} Shopify store homepage`}
+                    width={800}
+                    height={500}
                     loading="lazy"
+                    decoding="async"
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 ) : (
@@ -78,6 +81,7 @@ export default function Projects() {
                     href={project.viewUrl}
                     target="_blank"
                     rel="noreferrer"
+                    aria-label={`View Project: ${project.title}`}
                     className="inline-flex items-center gap-1.5 text-sm font-medium text-white/80 hover:text-accent-300"
                   >
                     <Eye size={15} /> View Project
@@ -86,6 +90,7 @@ export default function Projects() {
                     href={project.liveUrl}
                     target="_blank"
                     rel="noreferrer"
+                    aria-label={`Live Preview: ${project.title}`}
                     className="inline-flex items-center gap-1.5 text-sm font-medium text-white/80 hover:text-accent-300"
                   >
                     <ExternalLink size={15} /> Live Preview

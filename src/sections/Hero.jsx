@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { ArrowRight, Github, Linkedin, ShoppingBag } from 'lucide-react'
 import { profile } from '../data/profile'
 
@@ -9,11 +8,8 @@ export default function Hero() {
       className="relative overflow-hidden bg-grid-glow pt-32 pb-20 sm:pt-40 sm:pb-28"
     >
       <div className="container-base grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-        <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: 'easeOut' }}
-        >
+        {/* CSS animations, not Framer Motion, so the hero can paint before JavaScript loads. */}
+        <div className="animate-fade-up">
           <span className="chip text-accent-300 border-accent-300/30 bg-accent-300/5">
             Hello I'm
           </span>
@@ -62,20 +58,17 @@ export default function Hero() {
               <Github size={18} />
             </a> */}
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: 'easeOut', delay: 0.15 }}
-          className="relative mx-auto flex h-72 w-72 items-center justify-center sm:h-96 sm:w-96"
-        >
+        <div className="animate-scale-in relative mx-auto flex h-72 w-72 items-center justify-center sm:h-96 sm:w-96">
           <div className="absolute inset-0 rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-plum-500/20 via-ink-900/40 to-accent-300/10" />
           <div className="animate-float absolute inset-6 flex items-center justify-center rounded-[2rem] card-surface shadow-soft">
             {profile.avatar ? (
               <img
                 src={profile.avatar}
-                alt={profile.name}
+                alt={`${profile.name}, ${profile.role} based in ${profile.location}`}
+                width={672}
+                height={900}
                 className="h-full w-full rounded-[2rem] object-cover object-top"
               />
             ) : (
@@ -96,7 +89,7 @@ export default function Hero() {
           <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-accent-300/30 bg-ink-950/80 px-4 py-1.5 text-xs font-medium text-accent-200 backdrop-blur-sm">
             Shopify &middot; Liquid &middot; E-commerce
           </span>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

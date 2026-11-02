@@ -13,7 +13,7 @@ export default function Footer() {
             {profile.name}
           </span>
           <p className="mt-1 text-sm text-white/50">
-            {profile.role} — crafting fast, beautiful Shopify experiences.
+            {profile.role} in Gujarat, India — crafting fast, beautiful Shopify experiences.
           </p>
         </div>
 
@@ -49,7 +49,10 @@ export default function Footer() {
         </div>
       </div>
 
-      <p className="container-base mt-8 border-t border-white/5 pt-6 text-center text-xs text-white/40">
+      <p
+        suppressHydrationWarning
+        className="container-base mt-8 border-t border-white/5 pt-6 text-center text-xs text-white/50"
+      >
         &copy; {year} {profile.name}. All rights reserved.
       </p>
     </footer>

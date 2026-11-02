@@ -29,7 +29,8 @@ export default function Services() {
       <div className="container-base">
         <SectionHeading
           eyebrow="Services"
-          title="How I can help your store."
+          title="Shopify development services for your store."
+          description="Freelance Shopify website development, from custom themes to store fixes and speed optimisation."
           align="center"
         />
 

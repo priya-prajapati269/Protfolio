@@ -103,7 +103,12 @@ If you'd rather use a different provider (EmailJS, a custom serverless function,
 
 ## SEO
 
-Page title, meta description, and basic Open Graph tags are set in `index.html`. Update them to match your final branding and domain.
+- **Head tags and structured data:** the title, description, canonical URL, robots, Open Graph, Twitter Card, and JSON-LD (`WebSite`, `ProfilePage`, `Person`) are in `index.html`. Keep the JSON-LD in step with what the page shows.
+- **Crawling:** `public/robots.txt` and `public/sitemap.xml`. Update `<lastmod>` in the sitemap after meaningful content changes.
+- **Prerendering:** `npm run build` also renders the page into `dist/index.html` through `src/entry-server.jsx` and `scripts/prerender.js`, so crawlers get the content as HTML. Components must not read `window` or `document` during render; use `useEffect` instead.
+- **Images:** the hero photo and social sharing image are in `public/images/`. The hero is referenced from `src/data/profile.js` and preloaded in `index.html`.
+
+If the site moves to a custom domain, replace `https://priya-prajapati-portfolio.vercel.app` in `index.html`, `public/robots.txt`, and `public/sitemap.xml`.
 
 ## Notes
 

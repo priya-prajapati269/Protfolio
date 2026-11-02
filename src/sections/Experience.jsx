@@ -10,8 +10,8 @@ export default function Experience() {
       <div className="container-base">
         <SectionHeading
           eyebrow="Work Experience"
-          title="Where I've put these skills to work."
-          description="A quick look at my roles and what I focus on."
+          title="My experience as a Shopify developer."
+          description="4+ years of Shopify theme, frontend, and store development, from custom Liquid work to product data migration."
         />
 
         <div className="relative mt-14 border-l border-white/10 pl-8 sm:pl-10">
@@ -51,7 +51,7 @@ export default function Experience() {
           ))}
         </div>
 
-        <h3 className="section-heading mt-20 text-2xl font-semibold text-white">Education</h3>
+        <h2 className="section-heading mt-20 text-2xl font-semibold text-white">Education</h2>
 
         <div className="relative mt-10 border-l border-white/10 pl-8 sm:pl-10">
           {education.map((item, idx) => (

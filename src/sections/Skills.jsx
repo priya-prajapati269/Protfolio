@@ -8,7 +8,7 @@ export default function Skills() {
       <div className="container-base">
         <SectionHeading
           eyebrow="Technical Skills"
-          title="Tools I use to build great storefronts."
+          title="Shopify and Liquid skills for great storefronts."
           align="center"
         />
 

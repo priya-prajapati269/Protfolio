@@ -6,7 +6,7 @@ import { profile } from '../data/profile'
 const highlights = [
   {
     icon: Code2,
-    title: 'Theme Development',
+    title: 'Shopify Theme Development',
     text: 'Clean, scalable Liquid architecture built for the Shopify theme editor.',
   },
   {
@@ -27,8 +27,8 @@ export default function About() {
       <div className="container-base grid grid-cols-1 gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
         <SectionHeading
           eyebrow="About Me"
-          title="A developer who bridges design and e-commerce."
-          description={`${profile.name} is a Shopify Web Designer and Developer with 4+ years of experience, familiar with premium themes such as Impact, Symmetry, and Dawn, and skilled at using modern AI tools and performance optimisation to drive user engagement and sales.`}
+          title="A Shopify developer who bridges design and e-commerce."
+          description={`${profile.name} is a Shopify Web Designer and Developer in Gujarat, India with 4+ years of experience, familiar with premium themes such as Impact, Symmetry, and Dawn, and skilled at using modern AI tools and performance optimisation to drive user engagement and sales.`}
         />
 
         <motion.div
