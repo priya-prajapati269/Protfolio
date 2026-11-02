@@ -1,47 +1,107 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Github, Linkedin, Loader2, Mail, MapPin, Send } from 'lucide-react'
 import SectionHeading from '../components/SectionHeading'
 import { profile } from '../data/profile'
 
-// Formspree form endpoint ID, e.g. "abcdwxyz" from https://formspree.io/forms/<id>/integration
-// Set VITE_FORMSPREE_FORM_ID in a .env file (see .env.example) to enable real submissions.
-const FORMSPREE_FORM_ID = import.meta.env.VITE_FORMSPREE_FORM_ID
+// Web3Forms access key from https://web3forms.com — submissions are emailed to the address it was created for.
+// Set VITE_WEB3FORMS_ACCESS_KEY in a .env file (see .env.example) to enable real submissions.
+const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY
+
+// Public hCaptcha site key Web3Forms provides for its free plan.
+const HCAPTCHA_SITE_KEY = '50b2fe65-b00b-4b9e-ad62-3ba471098be2'
+const HCAPTCHA_SCRIPT_URL = 'https://js.hcaptcha.com/1/api.js?recaptchacompat=off'
+// Narrowest viewport where the 302px "normal" widget fits inside the form card's padding.
+const HCAPTCHA_NORMAL_MIN_WIDTH = 400
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
-  const [status, setStatus] = useState(null) // null | 'sending' | 'success' | 'error' | 'not-configured'
+  const [status, setStatus] = useState(null) // null | 'sending' | 'success' | 'invalid' | 'error' | 'not-configured'
+  const [errorMessage, setErrorMessage] = useState('')
+
+  useEffect(() => {
+    if (!WEB3FORMS_ACCESS_KEY || document.querySelector(`script[src="${HCAPTCHA_SCRIPT_URL}"]`)) {
+      return
+    }
+
+    // The script renders the widget into the .h-captcha element once it loads.
+    const script = document.createElement('script')
+    script.src = HCAPTCHA_SCRIPT_URL
+    script.async = true
+    document.body.appendChild(script)
+  }, [])
 
   const handleChange = (event) => {
     const { name, value } = event.target
     setForm((prev) => ({ ...prev, [name]: value }))
+
+    if (name === 'email') {
+      event.target.setCustomValidity(
+        value && !EMAIL_PATTERN.test(value) ? 'Please enter a valid email address' : '',
+      )
+    }
+  }
+
+  const showInvalid = (message) => {
+    setErrorMessage(message)
+    setStatus('invalid')
+  }
+
+  const showError = (message) => {
+    setErrorMessage(message.replace(/\.?$/, '.'))
+    setStatus('error')
   }
 
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    if (!FORMSPREE_FORM_ID) {
+    if (!WEB3FORMS_ACCESS_KEY) {
       setStatus('not-configured')
       return
     }
 
+    if (Object.values(form).some((value) => !value.trim())) {
+      showInvalid('Kindly complete all fields.')
+      return
+    }
+
+    const captcha = event.target.querySelector('textarea[name="h-captcha-response"]')
+
+    if (!captcha) {
+      showError("The captcha couldn't load, so your message wasn't sent.")
+      return
+    }
+
+    if (!captcha.value) {
+      showInvalid('Please fill out the captcha field.')
+      return
+    }
+
+    const payload = Object.fromEntries(new FormData(event.target))
+
     setStatus('sending')
 
     try {
-      const response = await fetch(`https://formspree.io/f/${FORMSPREE_FORM_ID}`, {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { Accept: 'application/json' },
-        body: new FormData(event.target),
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ ...payload, access_key: WEB3FORMS_ACCESS_KEY }),
       })
+      const result = await response.json()
 
       if (response.ok) {
         setStatus('success')
         setForm({ name: '', email: '', subject: '', message: '' })
       } else {
-        setStatus('error')
+        showError(result.message || 'Something went wrong sending your message.')
       }
     } catch {
-      setStatus('error')
+      showError('Something went wrong sending your message.')
+    } finally {
+      // Captcha tokens are single use, so every attempt needs a fresh one.
+      window.hcaptcha?.reset()
     }
   }
 
@@ -161,6 +221,15 @@ export default function Contact() {
             />
           </div>
 
+          {WEB3FORMS_ACCESS_KEY && (
+            <div
+              className="h-captcha mt-5"
+              data-sitekey={HCAPTCHA_SITE_KEY}
+              data-theme="dark"
+              data-size={window.innerWidth < HCAPTCHA_NORMAL_MIN_WIDTH ? 'compact' : 'normal'}
+            />
+          )}
+
           <button
             type="submit"
             disabled={status === 'sending'}
@@ -183,9 +252,11 @@ export default function Contact() {
             </p>
           )}
 
+          {status === 'invalid' && <p className="mt-4 text-sm text-plum-400">{errorMessage}</p>}
+
           {status === 'error' && (
             <p className="mt-4 text-sm text-plum-400">
-              Something went wrong sending your message. Please try again, or email me directly
+              {errorMessage} Please try again, or email me directly
               at <a href={`mailto:${profile.email}`} className="underline">{profile.email}</a>.
             </p>
           )}
@@ -194,7 +265,7 @@ export default function Contact() {
             <p className="mt-4 text-sm text-plum-400">
               This form isn&apos;t connected to an email service yet, so your message wasn&apos;t
               sent. Set <code className="rounded bg-white/10 px-1.5 py-0.5 text-xs">
-                VITE_FORMSPREE_FORM_ID
+                VITE_WEB3FORMS_ACCESS_KEY
               </code>{' '}
               in a <code className="rounded bg-white/10 px-1.5 py-0.5 text-xs">.env</code> file
               (see <code className="rounded bg-white/10 px-1.5 py-0.5 text-xs">.env.example</code>{' '}

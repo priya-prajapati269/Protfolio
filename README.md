@@ -85,17 +85,19 @@ For project screenshots, do the same in `src/data/projects.js` for each project'
 
 ## Contact Form
 
-The contact form in `src/sections/Contact.jsx` is wired up to [Formspree](https://formspree.io/), a service that forwards form submissions to your email without needing a backend. It is not active until you provide a form ID:
+The contact form in `src/sections/Contact.jsx` is wired up to [Web3Forms](https://web3forms.com/), a service that forwards form submissions to your email without needing a backend, with hCaptcha for spam protection. It is not active until you provide an access key:
 
-1. Create a free account at [formspree.io](https://formspree.io/) and create a new form.
-2. Copy the form ID from its endpoint URL: `https://formspree.io/f/<THIS_PART>`.
-3. Copy `.env.example` to `.env` in the project root and paste the ID:
+1. Enter the email address that should receive messages at [web3forms.com](https://web3forms.com/) and copy the access key they email you. Messages always go to the address the key was created for.
+2. Copy `.env.example` to `.env` in the project root and paste the key:
    ```
-   VITE_FORMSPREE_FORM_ID=your_form_id_here
+   VITE_WEB3FORMS_ACCESS_KEY=your_access_key_here
    ```
-4. Restart the dev server (`npm run dev`) so Vite picks up the new environment variable.
+3. Restart the dev server (`npm run dev`) so Vite picks up the new environment variable.
+4. When deploying, set the same variable in your hosting provider's environment settings, since `.env` is not committed.
 
-Until `.env` is set, submitting the form shows a clear "not connected yet" notice instead of silently failing. Once configured, the form shows a sending state, then a success or error message, and Formspree's free tier emails you each submission directly — no server code required.
+Vite includes this value in the browser bundle. That is expected: Web3Forms access keys are public by design and can only be used to send email to the key's owner. Never put real secrets in a `VITE_` variable.
+
+Until the key is set, submitting the form shows a clear "not connected yet" notice instead of silently failing. Once configured, the form validates the fields and captcha, shows a sending state, then a success or error message.
 
 If you'd rather use a different provider (EmailJS, a custom serverless function, etc.), replace the `handleSubmit` function in `src/sections/Contact.jsx` with your own integration.
 

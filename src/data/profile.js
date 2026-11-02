@@ -17,7 +17,7 @@ export const profile = {
   resumeUrl: '#',
   socials: {
     linkedin: 'https://www.linkedin.com/in/priyaprajapati-dev',
-    github: 'https://github.com/your-profile',
+    github: 'https://github.com/priya-prajapati269',
   },
   avatar,
 }
