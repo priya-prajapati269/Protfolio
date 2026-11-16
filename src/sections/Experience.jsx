@@ -33,19 +33,29 @@ export default function Experience() {
                   <h3 className="section-heading text-lg font-semibold text-white">
                     {job.title} &middot; {job.company}
                   </h3>
-                  <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/60">
-                    {job.duration}
-                  </span>
+                  {job.experience && (
+                    <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/60">
+                      {job.experience}
+                    </span>
+                  )}
                 </div>
 
-                <ul className="mt-4 space-y-1.5 text-sm text-white/60">
-                  {job.responsibilities.map((item) => (
-                    <li key={item} className="flex gap-2">
-                      <span className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-accent-300" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+                {job.duration && (
+                  <span className="mt-3 inline-block rounded-lg border border-white/10 px-3 py-1 text-xs text-white/60">
+                    {job.duration}
+                  </span>
+                )}
+
+                {job.responsibilities?.length > 0 && (
+                  <ul className="mt-4 space-y-1.5 text-sm text-white/60">
+                    {job.responsibilities.map((item) => (
+                      <li key={item} className="flex gap-2">
+                        <span className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-accent-300" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
             </motion.div>
           ))}
